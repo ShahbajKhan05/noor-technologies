@@ -15,6 +15,10 @@ export const metadata: Metadata = {
     "Digital Solutions",
   ],
   metadataBase: new URL("https://www.noortechnologies.in"),
+
+  other: {
+    "msvalidate.01": "B1CE4D3741710754C1DB48B0D0E65B68",
+  },
 };
 
 export default function RootLayout({
