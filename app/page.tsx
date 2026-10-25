@@ -6,6 +6,7 @@ import Projects from "./components/projects";
 import PortfolioSection from "./components/PortfolioSection";
 import Contact from "./components/contact";
 import Menu from "./components/menu";
+import Maintenance from "./components/maintenance";
 export default function Home() {
   return (
     <main className="relative min-h-screen overflow-x-clip bg-white text-[#111111]">
@@ -44,6 +45,10 @@ export default function Home() {
       {/* MENU */}
       <section id="menu">
         <Menu/>
+      </section>
+      {/*Maintanaince*/}
+      <section id="maintenance">
+        <Maintenance/>
       </section>
     </main>
   );

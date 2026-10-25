@@ -549,8 +549,7 @@ export default function Menu() {
 
         {/* FOOTER */}
         <footer className="mt-3 flex flex-col gap-1 border-t border-black/[0.08] pt-2.5 text-[9px] text-[#555B5D] sm:flex-row sm:items-center sm:justify-between">
-          <span>© {new Date().getFullYear()} Noor Technologies</span>
-
+<span>© 2026 Noor Technologies</span>
           <a
             href="https://www.noortechnologies.in"
             target="_blank"

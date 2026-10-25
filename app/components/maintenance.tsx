@@ -72,7 +72,7 @@ export default function Maintenance() {
   return (
     <section
       id="maintenance"
-      className="w-full bg-white px-4 py-10 text-[#111111] sm:px-7 sm:py-14 lg:px-12 lg:py-20"
+      className="w-full bg-white px-4 py-6 text-[#111111] sm:px-7 sm:py-9 lg:px-12 lg:py-12"
     >
       <div className="mx-auto w-full max-w-[1400px]">
         {/* SECTION HEADING */}
@@ -81,30 +81,30 @@ export default function Maintenance() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: reduceMotion ? 0 : 0.5 }}
-          className="flex flex-col justify-between gap-3 border-b border-[#E5E5E5] pb-5 sm:flex-row sm:items-end sm:pb-7"
+          className="flex flex-col justify-between gap-2 border-b border-[#E5E5E5] pb-4 sm:flex-row sm:items-end sm:pb-5"
         >
           <div>
-            <p className="mb-2 text-[10px] font-bold uppercase tracking-[0.24em] text-[#079E9A] sm:text-xs">
+            <p className="mb-1.5 text-[10px] font-bold uppercase tracking-[0.2em] text-[#079E9A] sm:text-xs">
               Website Care / Pricing
             </p>
 
-            <h2 className="text-[clamp(2.15rem,5.5vw,5rem)] font-semibold leading-[0.98] tracking-[-0.07em]">
+            <h2 className="text-[clamp(2rem,5.5vw,4.5rem)] font-semibold leading-[0.98] tracking-[-0.07em]">
               Maintenance
               <span className="text-[#FF765D]">.</span>
             </h2>
 
-            <p className="mt-3 text-[13px] text-[#777777] sm:text-base">
+            <p className="mt-2 text-[12px] text-[#777777] sm:text-sm">
               Reliable support. Predictable pricing.
             </p>
           </div>
 
-          <p className="text-[10px] uppercase tracking-[0.12em] text-[#777777] sm:pb-1 sm:text-xs">
+          <p className="text-[9px] uppercase tracking-[0.12em] text-[#777777] sm:pb-1 sm:text-xs">
             NOOR TECHNOLOGIES / 03 PLANS
           </p>
         </motion.div>
 
         {/* PRICING PLANS */}
-        <div className="mt-5 sm:mt-8">
+        <div className="mt-3 sm:mt-5">
           {plans.map((plan, index) => (
             <motion.article
               key={plan.name}
@@ -118,10 +118,10 @@ export default function Maintenance() {
                 duration: reduceMotion ? 0 : 0.45,
                 ease: "easeOut",
               }}
-              className="group grid grid-cols-[28px_minmax(0,1fr)] gap-x-3 border-b border-[#E5E5E5] py-5 sm:grid-cols-[44px_minmax(0,1fr)_150px] sm:gap-x-5 sm:py-7 lg:grid-cols-[55px_minmax(0,1fr)_180px_150px]"
+              className="group grid grid-cols-[24px_minmax(0,1fr)] gap-x-2.5 border-b border-[#E5E5E5] py-3 sm:grid-cols-[36px_minmax(0,1fr)_120px] sm:gap-x-4 sm:py-4 lg:grid-cols-[44px_minmax(0,1fr)_150px_130px]"
             >
               {/* NUMBER */}
-              <span className="pt-1 text-[11px] text-[#777777] sm:text-sm">
+              <span className="pt-1 text-[10px] text-[#777777] sm:text-xs">
                 {plan.number}
               </span>
 
@@ -129,7 +129,7 @@ export default function Maintenance() {
               <div className="min-w-0">
                 <div className="flex flex-wrap items-center gap-2">
                   <h3
-                    className="text-[clamp(1.4rem,3.5vw,3rem)] font-medium leading-[1.08] tracking-[-0.055em] transition-colors duration-200"
+                    className="text-[clamp(1.35rem,3.5vw,2.7rem)] font-medium leading-[1.05] tracking-[-0.055em] transition-colors duration-200"
                     style={
                       {
                         "--plan-color": plan.color,
@@ -142,35 +142,36 @@ export default function Maintenance() {
                   </h3>
 
                   {index === 1 && (
-                    <span className="rounded-sm bg-[#FCE2D9] px-2 py-1 text-[8px] font-bold uppercase tracking-[0.1em] text-[#9A4936] sm:text-[9px]">
+                    <span className="rounded-sm bg-[#FCE2D9] px-2 py-1 text-[8px] font-bold uppercase tracking-[0.08em] text-[#9A4936]">
                       Popular
                     </span>
                   )}
                 </div>
 
-                <p className="mt-1.5 text-[11px] leading-5 text-[#777777] sm:mt-2 sm:text-sm">
+                <p className="mt-1 text-[11px] leading-4 text-[#777777] sm:text-xs sm:leading-5">
                   {plan.description}
                 </p>
 
                 {/* MOBILE PRICE */}
-                <div className="mt-3 flex flex-wrap items-baseline gap-x-2 gap-y-1 sm:hidden">
-                  <span className="text-2xl font-semibold tracking-[-0.06em]">
+                <div className="mt-2 flex flex-wrap items-baseline gap-x-2 sm:hidden">
+                  <span className="text-xl font-semibold tracking-[-0.06em]">
                     {plan.price}
                   </span>
                   <span className="text-[10px] text-[#777777]">/ month</span>
                 </div>
 
-                {/* FEATURES */}
-                <details className="mt-3 max-w-2xl">
-                  <summary className="flex w-fit cursor-pointer list-none items-center gap-2 py-1 text-[10px] font-semibold text-[#067F7C] [&::-webkit-details-marker]:hidden">
+                {/* EXPANDABLE FEATURES */}
+                <details className="group/details mt-2 max-w-2xl">
+                  <summary className="flex w-fit cursor-pointer list-none items-center gap-2 py-1 text-[10px] font-semibold text-[#067F7C] [&::-webkit-details-marker]:hidden sm:text-[11px]">
                     View included services
-                    <span className="text-sm transition-transform group-open:rotate-45">
+
+                    <span className="flex h-5 w-5 items-center justify-center rounded-full border border-[#079E9A]/30 text-base font-normal leading-none transition-all duration-200 group-open/details:rotate-45 group-open/details:bg-[#079E9A] group-open/details:text-white">
                       +
                     </span>
                   </summary>
 
                   <ul
-                    className="mt-2 grid gap-x-5 gap-y-2 border-l-2 pl-3 sm:grid-cols-2 sm:pl-4"
+                    className="mt-1.5 grid gap-x-4 gap-y-1 border-l-2 py-1 pl-3 sm:grid-cols-2 sm:pl-4"
                     style={{ borderColor: plan.color }}
                   >
                     {plan.features.map((feature) => (
@@ -187,25 +188,28 @@ export default function Maintenance() {
 
               {/* DESKTOP PRICE */}
               <div className="hidden self-center sm:block">
-                <p className="text-2xl font-semibold tracking-[-0.06em] lg:text-3xl">
+                <p className="text-xl font-semibold tracking-[-0.06em] lg:text-2xl">
                   {plan.price}
                 </p>
-                <p className="mt-1 text-[10px] text-[#777777]">Per month</p>
+                <p className="mt-0.5 text-[10px] text-[#777777]">
+                  Per month
+                </p>
               </div>
 
               {/* CTA */}
-              <div className="col-start-2 mt-4 sm:col-start-auto sm:mt-0 sm:self-center">
+              <div className="col-start-2 mt-2.5 sm:col-start-auto sm:mt-0 sm:self-center">
                 <a
                   href={`https://wa.me/918349813831?text=${encodeURIComponent(
                     `Hi Noor Technologies, I am interested in the ${plan.name} website maintenance plan at ${plan.price}/month. Please share the details.`
                   )}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex min-h-10 w-full items-center justify-between gap-3 border border-[#E5E5E5] px-3 py-2.5 text-[11px] font-semibold transition-all duration-200 hover:border-[#079E9A] hover:bg-[#D1EAE7] sm:w-auto sm:min-w-[125px] sm:px-3.5"
+                  className="inline-flex min-h-9 w-full items-center justify-between gap-3 border border-[#E5E5E5] px-3 py-2 text-[11px] font-semibold transition-colors duration-200 hover:border-[#079E9A] hover:bg-[#D1EAE7] sm:w-auto sm:min-w-[115px] sm:px-3"
                 >
                   Enquire now
+
                   <span
-                    className="flex h-6 w-6 items-center justify-center text-white"
+                    className="flex h-6 w-6 shrink-0 items-center justify-center text-white"
                     style={{ backgroundColor: plan.color }}
                   >
                     ↗
@@ -222,15 +226,15 @@ export default function Maintenance() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: reduceMotion ? 0 : 0.4 }}
-          className="mt-8 sm:mt-12"
+          className="mt-6 sm:mt-8"
         >
-          <div className="flex items-end justify-between gap-3 border-b border-[#E5E5E5] pb-3">
+          <div className="flex items-end justify-between gap-3 border-b border-[#E5E5E5] pb-2.5">
             <div>
-              <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#079E9A]">
+              <p className="text-[9px] font-bold uppercase tracking-[0.18em] text-[#079E9A] sm:text-[10px]">
                 Beyond the plans
               </p>
 
-              <h3 className="mt-1 text-2xl font-semibold tracking-[-0.055em] sm:text-3xl">
+              <h3 className="mt-1 text-xl font-semibold tracking-[-0.055em] sm:text-2xl">
                 Additional services
                 <span className="text-[#FF765D]">.</span>
               </h3>
@@ -245,11 +249,11 @@ export default function Maintenance() {
             {extras.map((item, index) => (
               <div
                 key={item.name}
-                className={`flex items-center justify-between gap-3 border-b border-[#E5E5E5] py-3 ${
+                className={`flex items-center justify-between gap-3 border-b border-[#E5E5E5] py-2.5 ${
                   index % 3 !== 2 ? "lg:pr-5" : ""
                 } sm:even:pl-4 lg:even:pl-0`}
               >
-                <span className="text-[11px] leading-5 text-[#404040] sm:text-xs">
+                <span className="text-[11px] leading-4 text-[#404040] sm:text-xs">
                   {item.name}
                 </span>
 
@@ -262,13 +266,13 @@ export default function Maintenance() {
         </motion.div>
 
         {/* BOTTOM CTA */}
-        <div className="mt-7 flex flex-col gap-4 border-t border-[#E5E5E5] pt-5 sm:mt-10 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-5 flex flex-col gap-3 border-t border-[#E5E5E5] pt-4 sm:mt-7 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#079E9A]">
+            <p className="text-[9px] font-bold uppercase tracking-[0.16em] text-[#079E9A] sm:text-[10px]">
               Have a specific requirement?
             </p>
 
-            <h3 className="mt-1 text-xl font-semibold tracking-[-0.05em] sm:text-2xl">
+            <h3 className="mt-1 text-lg font-semibold tracking-[-0.05em] sm:text-xl">
               Let&apos;s find the right plan.
             </h3>
           </div>
@@ -278,14 +282,14 @@ export default function Maintenance() {
               href="https://wa.me/918349813831"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex min-h-10 flex-1 items-center justify-center gap-2 bg-[#079E9A] px-4 py-2.5 text-[11px] font-semibold text-white transition-colors hover:bg-[#067F7C] sm:flex-none"
+              className="inline-flex min-h-9 flex-1 items-center justify-center gap-2 bg-[#079E9A] px-4 py-2 text-[11px] font-semibold text-white transition-colors hover:bg-[#067F7C] sm:flex-none"
             >
               WhatsApp us ↗
             </a>
 
             <a
               href="mailto:technoorpvt@gmail.com?subject=Website%20Maintenance%20Enquiry"
-              className="inline-flex min-h-10 flex-1 items-center justify-center border border-[#E5E5E5] px-4 py-2.5 text-[11px] font-semibold text-[#283532] transition-colors hover:border-[#079E9A] sm:flex-none"
+              className="inline-flex min-h-9 flex-1 items-center justify-center border border-[#E5E5E5] px-4 py-2 text-[11px] font-semibold text-[#283532] transition-colors hover:border-[#079E9A] sm:flex-none"
             >
               Email us
             </a>
@@ -293,7 +297,7 @@ export default function Maintenance() {
         </div>
 
         {/* FOOTER NOTE */}
-        <div className="mt-5 flex flex-wrap justify-between gap-2 text-[9px] text-[#777777]">
+        <div className="mt-4 flex flex-wrap justify-between gap-2 text-[9px] text-[#777777]">
           <span>NOOR TECHNOLOGIES © 2026</span>
 
           <a
