@@ -2,7 +2,7 @@ import Hero from "./components/hero";
 import About from "./components/about";
 import Services from "./components/services";
 import Projects from "./components/projects";
-
+import PortfolioSection from "./components/PortfolioSection";
 import Process from "./components/process";
 import Contact from "./components/contact";
 
@@ -13,6 +13,11 @@ export default function Home() {
       <section id="home">
         <Hero />
       </section>
+
+     {/* Portfolio */ }
+     <section id="PortfolioSection">
+     <PortfolioSection/>
+     </section>
 
       {/* About Noor Technologies */}
       <section id="about">
@@ -28,8 +33,6 @@ export default function Home() {
       <section id="projects">
         <Projects />
       </section>
-
-     
 
       {/* Our Process */}
       <Process />
