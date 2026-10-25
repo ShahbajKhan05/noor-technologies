@@ -3,13 +3,15 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 
+const WHATSAPP = "918349813831";
+
 const services = [
   {
     number: "01",
     title: "Website Development",
-    subtitle: "Responsive websites for your business",
+    subtitle: "Websites for your business",
     color: "#079E9A",
-    tint: "#E5F7F5",
+    tint: "#E7F8F6",
     items: [
       ["Landing Page", "₹2,099"],
       ["Personal Portfolio Website", "₹2,799"],
@@ -21,9 +23,9 @@ const services = [
   {
     number: "02",
     title: "Custom Web Applications",
-    subtitle: "Smart software solutions for your business",
+    subtitle: "Smart business software",
     color: "#FF765D",
-    tint: "#FFF0E8",
+    tint: "#FFF0E9",
     items: [
       ["Admin Dashboard", "₹5,599"],
       ["Student Management System", "₹10,499"],
@@ -35,9 +37,9 @@ const services = [
   {
     number: "03",
     title: "UI/UX & Website Design",
-    subtitle: "Modern and attractive website designs",
-    color: "#FB2C36",
-    tint: "#FFF0F0",
+    subtitle: "Beautiful digital experiences",
+    color: "#E94F68",
+    tint: "#FFF0F3",
     items: [
       ["Website UI Design", "₹1,399"],
       ["Landing Page Design", "₹1,049"],
@@ -48,8 +50,8 @@ const services = [
   {
     number: "04",
     title: "Website Maintenance",
-    subtitle: "Keep your website updated and secure",
-    color: "#078CBA",
+    subtitle: "Keep your website updated",
+    color: "#168BC1",
     tint: "#EAF6FC",
     items: [
       ["Basic Website Updates", "₹349"],
@@ -62,9 +64,9 @@ const services = [
   {
     number: "05",
     title: "Digital Business Solutions",
-    subtitle: "Improve your online presence",
-    color: "#7C3AED",
-    tint: "#F4EEFF",
+    subtitle: "Tools for your business",
+    color: "#8051D9",
+    tint: "#F3EEFF",
     items: [
       ["Business Email Setup", "₹349"],
       ["Domain & Hosting Setup", "₹699"],
@@ -76,9 +78,9 @@ const services = [
   {
     number: "06",
     title: "IT Training & Coaching",
-    subtitle: "Learn practical skills and grow your career",
-    color: "#16A34A",
-    tint: "#EFF9E9",
+    subtitle: "Learn and build your skills",
+    color: "#279B54",
+    tint: "#ECF8EE",
     items: [
       ["HTML & CSS Training", "₹2,099"],
       ["JavaScript Training", "₹2,799"],
@@ -93,9 +95,9 @@ const packages = [
   {
     name: "Starter",
     price: "₹2,099",
+    description: "Perfect to get started",
     color: "#079E9A",
-    tint: "#E5F7F5",
-    description: "For individuals and small businesses",
+    tint: "#E8F8F6",
     features: [
       "Basic Website",
       "Mobile-Friendly Design",
@@ -106,9 +108,10 @@ const packages = [
   {
     name: "Business",
     price: "₹5,599",
-    color: "#FF765D",
-    tint: "#FFF0E8",
     description: "For growing businesses",
+    color: "#FF765D",
+    tint: "#FFF0E9",
+    popular: true,
     features: [
       "Professional Website",
       "Up to 5 Pages",
@@ -116,14 +119,13 @@ const packages = [
       "Basic SEO Setup",
       "3 Months Support",
     ],
-    popular: true,
   },
   {
     name: "Premium",
     price: "₹10,499",
-    color: "#7C3AED",
-    tint: "#F4EEFF",
-    description: "For advanced business requirements",
+    description: "For advanced requirements",
+    color: "#8051D9",
+    tint: "#F3EEFF",
     features: [
       "Custom Website Design",
       "Advanced Features",
@@ -143,12 +145,16 @@ const additionalServices = [
   ["Emergency Support", "Custom Quote"],
 ];
 
+function whatsappLink(message: string) {
+  return `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(message)}`;
+}
+
 function ArrowIcon() {
   return (
     <svg
       viewBox="0 0 24 24"
       fill="none"
-      className="h-4 w-4"
+      className="h-3.5 w-3.5 shrink-0 transition-transform duration-200 group-hover:translate-x-1"
       aria-hidden="true"
     >
       <path
@@ -162,188 +168,239 @@ function ArrowIcon() {
   );
 }
 
+function CheckIcon({ color }: { color: string }) {
+  return (
+    <svg
+      viewBox="0 0 20 20"
+      fill="none"
+      className="mt-0.5 h-3.5 w-3.5 shrink-0"
+      aria-hidden="true"
+    >
+      <path
+        d="m4 10 4 4 8-8"
+        stroke={color}
+        strokeWidth="2.2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+function Heading({
+  eyebrow,
+  title,
+  description,
+}: {
+  eyebrow: string;
+  title: string;
+  description?: string;
+}) {
+  return (
+    <div className="min-w-0">
+      <p className="text-[9px] font-black uppercase tracking-[0.15em] text-[#079E9A]">
+        {eyebrow}
+      </p>
+
+      <h2 className="mt-1 text-[clamp(1.5rem,3vw,2.4rem)] font-black leading-tight tracking-[-0.055em] text-[#111111] [-webkit-text-stroke:0.35px_#111111]">
+        {title}
+        <span className="text-[#FF765D] [-webkit-text-stroke:0px]">.</span>
+      </h2>
+
+      {description && (
+        <p className="mt-1 text-[11px] leading-4 text-[#555B5D] sm:text-xs">
+          {description}
+        </p>
+      )}
+    </div>
+  );
+}
+
 export default function Menu() {
   const reduceMotion = useReducedMotion();
+
+  const reveal = {
+    initial: reduceMotion ? false : { opacity: 0, y: 8 },
+    whileInView: { opacity: 1, y: 0 },
+    viewport: { once: true, amount: 0.05 },
+    transition: { duration: reduceMotion ? 0 : 0.25 },
+  };
 
   return (
     <section
       id="menu"
-      className="w-full overflow-hidden bg-white px-3 py-6 text-[#111111] sm:px-6 sm:py-9 lg:px-10 lg:py-12"
+      className="relative isolate overflow-hidden bg-[#FAFBFA] px-2 py-4 text-[#111111] sm:px-3 sm:py-5 lg:px-4 lg:py-6"
     >
-      <div className="mx-auto max-w-[1400px]">
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -right-24 top-10 -z-10 h-52 w-52 rounded-full bg-[#079E9A]/[0.06] blur-3xl"
+      />
+
+      <div className="mx-auto max-w-7xl">
         {/* HEADER */}
         <motion.header
-          initial={{
-            opacity: 0,
-            y: reduceMotion ? 0 : 12,
-          }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: reduceMotion ? 0 : 0.4 }}
-          className="flex items-end justify-between gap-3 border-b border-[#E5E5E5] pb-4 sm:pb-5"
+          {...reveal}
+          className="mb-3 flex flex-col gap-2 border-b border-black/10 pb-3 sm:mb-4 sm:flex-row sm:items-end sm:justify-between"
         >
           <div className="min-w-0">
-            <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#067F7C] sm:text-xs">
-              NOOR TECHNOLOGIES / OUR SERVICES
-            </p>
+            <span className="mb-1.5 inline-flex items-center gap-1.5 rounded-full border border-[#079E9A]/20 bg-white px-2 py-1 text-[9px] font-black uppercase tracking-wider text-[#067F7C]">
+              <span className="h-1.5 w-1.5 rounded-full bg-[#079E9A]" />
+              Noor Technologies
+            </span>
 
-            <h2 className="mt-2 text-[clamp(1.8rem,5.5vw,3.8rem)] font-black leading-[1.05] tracking-[-0.065em] text-[#111111]">
-              IT Services <span className="text-[#FF765D]">Menu.</span>
-            </h2>
+            <h1 className="text-[clamp(1.8rem,4.5vw,3.2rem)] font-black leading-[1] tracking-[-0.06em] text-[#111111] [-webkit-text-stroke:0.4px_#111111]">
+              IT Services<span className="text-[#079E9A]">.</span>
+              <br className="hidden sm:block" />
+              <span className="text-[#FF765D] [-webkit-text-stroke:0px]">
+                {" "}Clear Pricing.
+              </span>
+            </h1>
 
-            <p className="mt-2 text-xs font-medium text-[#555555] sm:text-sm">
-              Digital Solutions. Software. Technology Education.
+            <p className="mt-1.5 max-w-lg text-[11px] leading-4 text-[#555B5D] sm:text-xs">
+              Digital solutions, transparent prices, and technology to grow
+              your business.
             </p>
           </div>
 
-          <div className="hidden shrink-0 border-l border-[#D1EAE7] pl-4 sm:block">
-            <p className="text-xs font-semibold text-[#283532]">
-              ✓ Quality Solutions
-            </p>
-            <p className="mt-2 text-xs font-semibold text-[#283532]">
-              ✓ Affordable Pricing
-            </p>
-            <p className="mt-2 text-xs font-semibold text-[#283532]">
-              ✓ Ongoing Support
-            </p>
-          </div>
+          <div className="flex gap-2">
+            <div className="rounded-lg border border-black/[0.07] bg-white px-2.5 py-1.5">
+              <p className="text-base font-black leading-none">06</p>
+              <p className="mt-1 text-[9px] text-[#555B5D]">Services</p>
+            </div>
 
-          <span className="shrink-0 text-2xl font-black tracking-[-0.08em] text-[#079E9A] sm:hidden">
-            06
-          </span>
+            <div className="rounded-lg border border-black/[0.07] bg-white px-2.5 py-1.5">
+              <p className="text-base font-black leading-none">03</p>
+              <p className="mt-1 text-[9px] text-[#555B5D]">Packages</p>
+            </div>
+          </div>
         </motion.header>
 
-        {/* SERVICES */}
-        <div className="mt-4 grid grid-cols-1 items-start gap-3 sm:mt-5 sm:grid-cols-2 sm:gap-4">
+        {/* SERVICE GRID */}
+        <div className="grid grid-cols-1 items-stretch gap-2 sm:grid-cols-2 lg:grid-cols-3 lg:gap-2.5">
           {services.map((service, index) => (
             <motion.article
               key={service.number}
-              initial={{
-                opacity: 0,
-                x: reduceMotion ? 0 : index % 2 === 0 ? -14 : 14,
-              }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, amount: 0.08 }}
+              initial={reduceMotion ? false : { opacity: 0, y: 8 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.05 }}
               transition={{
-                duration: reduceMotion ? 0 : 0.4,
-                ease: "easeOut",
+                duration: reduceMotion ? 0 : 0.25,
+                delay: reduceMotion ? 0 : (index % 3) * 0.03,
               }}
-              className="min-w-0 overflow-hidden rounded-xl border border-[#E5E5E5] bg-white shadow-[0_2px_8px_rgba(0,0,0,0.025)]"
+              className="flex min-w-0 flex-col overflow-hidden rounded-xl border border-black/[0.08] bg-white shadow-[0_2px_8px_rgba(20,30,30,0.025)] transition-shadow hover:shadow-md"
             >
-              {/* SERVICE TITLE */}
               <div
-                className="flex items-center gap-2.5 px-3 py-3 sm:gap-3 sm:px-4"
+                className="px-2.5 py-2 sm:px-3"
                 style={{ backgroundColor: service.tint }}
               >
-                <div
-                  className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg text-sm font-black text-white sm:h-11 sm:w-11"
-                  style={{ backgroundColor: service.color }}
-                >
-                  {service.number}
-                </div>
+                <div className="flex items-center gap-2">
+                  <span
+                    className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md text-[9px] font-black text-white"
+                    style={{ backgroundColor: service.color }}
+                  >
+                    {service.number}
+                  </span>
 
-                <div className="min-w-0 flex-1">
-                  <h3 className="text-xs font-black uppercase leading-snug tracking-[-0.025em] text-[#111111] sm:text-sm">
-                    {service.title}
-                  </h3>
+                  <div className="min-w-0">
+                    <h3 className="text-[11px] font-black leading-tight text-[#111111] [-webkit-text-stroke:0.2px_#111111] sm:text-xs">
+                      {service.title}
+                    </h3>
 
-                  <p className="mt-1 text-[11px] font-medium leading-snug text-[#404040] sm:text-xs">
-                    {service.subtitle}
-                  </p>
+                    <p className="mt-0.5 text-[9px] leading-3 text-[#51565A]">
+                      {service.subtitle}
+                    </p>
+                  </div>
                 </div>
               </div>
 
-              {/* PRICING TABLE */}
-              <div className="px-3 sm:px-4">
-                <table className="w-full table-fixed border-collapse">
-                  <thead>
-                    <tr className="border-b-2 border-[#E5E5E5]">
-                      <th className="w-[70%] py-2.5 pr-2 text-left text-[10px] font-extrabold uppercase tracking-[0.08em] text-[#555555] sm:text-xs">
-                        Service
-                      </th>
+              <div className="flex-1 px-2.5 py-0.5 sm:px-3">
+                {service.items.map(([name, price], itemIndex) => (
+                  <div
+                    key={name}
+                    className={`flex items-start justify-between gap-1.5 py-1.5 ${
+                      itemIndex !== service.items.length - 1
+                        ? "border-b border-black/[0.055]"
+                        : ""
+                    }`}
+                  >
+                    <span className="min-w-0 flex-1 text-[10px] font-medium leading-4 text-[#282828] sm:text-[11px]">
+                      {name}
+                    </span>
 
-                      <th className="w-[30%] py-2.5 text-right text-[10px] font-extrabold uppercase tracking-[0.08em] text-[#555555] sm:text-xs">
-                        Price
-                      </th>
-                    </tr>
-                  </thead>
-
-                  <tbody>
-                    {service.items.map(([name, price]) => (
-                      <tr
-                        key={name}
-                        className="border-b border-[#EEEEEE] last:border-0"
-                      >
-                        <td className="py-2.5 pr-2 text-left align-middle text-xs font-medium leading-snug text-[#262626] sm:py-3 sm:text-sm">
-                          {name}
-                        </td>
-
-                        <td className="whitespace-nowrap py-2.5 text-right align-middle text-xs font-extrabold leading-snug text-[#111111] sm:py-3 sm:text-sm">
-                          {price}
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+                    <span
+                      className="shrink-0 whitespace-nowrap rounded px-1 py-0.5 text-[9px] font-black sm:text-[10px]"
+                      style={{
+                        color: service.color,
+                        backgroundColor: service.tint,
+                      }}
+                    >
+                      {price}
+                    </span>
+                  </div>
+                ))}
               </div>
 
-              {/* ENQUIRY */}
               <a
-                href={`https://wa.me/918349813831?text=${encodeURIComponent(
-                  `Hi Noor Technologies, I would like to enquire about ${service.title}. Please share the details.`,
-                )}`}
+                href={whatsappLink(
+                  `Hi Noor Technologies, I would like to enquire about ${service.title}. Please share the details.`
+                )}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex min-h-10 items-center justify-between border-t border-[#E5E5E5] px-3 py-2.5 text-xs font-bold text-[#067F7C] transition-colors hover:bg-[#F2FAF9] sm:px-4 sm:text-sm"
+                className="group flex min-h-8 items-center justify-between gap-2 border-t border-black/[0.06] px-2.5 py-1.5 text-[10px] font-bold sm:px-3"
+                style={{ color: service.color }}
               >
-                Enquire about this service
+                Discuss your requirements
                 <ArrowIcon />
               </a>
             </motion.article>
           ))}
         </div>
 
-        {/* PACKAGES */}
-        <section className="mt-7 sm:mt-10">
-          <div className="mb-3 flex items-end justify-between gap-3 border-b border-[#E5E5E5] pb-3 sm:mb-4">
-            <div>
-              <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#067F7C] sm:text-xs">
-                Simple plans. Clear pricing.
-              </p>
+        {/* WEBSITE PACKAGES */}
+        <section className="mt-5 sm:mt-6">
+          <motion.div
+            {...reveal}
+            className="mb-3 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between"
+          >
+            <Heading
+              eyebrow="Find your perfect fit"
+              title="Website Packages"
+              description="Choose a package that matches your goals."
+            />
 
-              <h3 className="mt-1 text-2xl font-black tracking-[-0.055em] text-[#111111] sm:text-3xl">
-                Website Packages<span className="text-[#FF765D]">.</span>
-              </h3>
-            </div>
+            <a
+              href={whatsappLink(
+                "Hi Noor Technologies, I need a custom website package."
+              )}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex w-fit items-center gap-1.5 rounded-full border border-black/10 bg-white px-2.5 py-1.5 text-[10px] font-bold hover:border-[#079E9A]/40"
+            >
+              Custom package?
+              <ArrowIcon />
+            </a>
+          </motion.div>
 
-            <span className="pb-1 text-[10px] font-medium text-[#555555] sm:text-xs">
-              3 plans
-            </span>
-          </div>
-
-          <div className="grid grid-cols-1 gap-3 sm:grid-cols-3 sm:gap-4">
+          <div className="grid grid-cols-1 items-stretch gap-2 sm:grid-cols-3">
             {packages.map((pkg, index) => (
               <motion.article
                 key={pkg.name}
-                initial={{
-                  opacity: 0,
-                  y: reduceMotion ? 0 : 12,
-                }}
+                initial={reduceMotion ? false : { opacity: 0, y: 8 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.1 }}
+                viewport={{ once: true, amount: 0.05 }}
                 transition={{
-                  duration: reduceMotion ? 0 : 0.35,
-                  delay: reduceMotion ? 0 : index * 0.06,
+                  duration: reduceMotion ? 0 : 0.25,
+                  delay: reduceMotion ? 0 : index * 0.04,
                 }}
-                className={`relative min-w-0 overflow-hidden rounded-xl border bg-white ${
+                className={`flex min-w-0 flex-col overflow-hidden rounded-xl border bg-white ${
                   pkg.popular
-                    ? "border-[#FF765D] shadow-[0_4px_18px_rgba(255,118,93,0.10)]"
-                    : "border-[#E5E5E5]"
+                    ? "border-[#FF765D]/60 shadow-[0_4px_15px_rgba(255,118,93,0.09)]"
+                    : "border-black/[0.08] shadow-sm"
                 }`}
               >
                 {pkg.popular && (
                   <div
-                    className="px-3 py-1.5 text-center text-[10px] font-black uppercase tracking-[0.12em] text-white sm:text-xs"
+                    className="px-2 py-1 text-center text-[9px] font-black uppercase tracking-wider text-white"
                     style={{ backgroundColor: pkg.color }}
                   >
                     ★ Most Popular
@@ -351,60 +408,53 @@ export default function Menu() {
                 )}
 
                 <div
-                  className="p-3.5 sm:p-4"
+                  className="p-3 sm:p-3.5"
                   style={{ backgroundColor: pkg.tint }}
                 >
                   <p
-                    className="text-sm font-black uppercase tracking-[-0.02em] sm:text-base"
+                    className="text-[10px] font-black uppercase tracking-wider"
                     style={{ color: pkg.color }}
                   >
                     {pkg.name} Package
                   </p>
 
-                  <p className="mt-1 text-xs font-medium text-[#404040] sm:text-sm">
+                  <p className="mt-1 text-[10px] text-[#555B5D]">
                     {pkg.description}
                   </p>
 
-                  <div className="mt-3 flex items-baseline gap-1.5">
-                    <span className="text-3xl font-black tracking-[-0.06em] text-[#111111] sm:text-4xl">
-                      {pkg.price}
-                    </span>
-                    <span className="text-[10px] font-medium text-[#555555] sm:text-xs">
-                      starting price
-                    </span>
-                  </div>
-                </div>
-
-                <div className="p-3.5 sm:p-4">
-                  <p className="mb-2.5 text-[10px] font-extrabold uppercase tracking-[0.12em] text-[#555555] sm:text-xs">
-                    What&apos;s included
+                  <p className="mt-2 text-2xl font-black leading-none tracking-tight text-[#111111] [-webkit-text-stroke:0.25px_#111111]">
+                    {pkg.price}
                   </p>
 
-                  <ul className="space-y-2.5">
+                  <p className="mt-1 text-[9px] text-[#666B70]">
+                    Starting price
+                  </p>
+                </div>
+
+                <div className="flex flex-1 flex-col p-3 sm:p-3.5">
+                  <p className="mb-2 text-[9px] font-black uppercase tracking-wider text-[#707578]">
+                    Included
+                  </p>
+
+                  <ul className="flex-1 space-y-1.5">
                     {pkg.features.map((feature) => (
                       <li
                         key={feature}
-                        className="flex items-start gap-2 text-xs font-medium leading-snug text-[#262626] sm:text-sm"
+                        className="flex items-start gap-1.5 text-[10px] leading-4 text-[#303538] sm:text-[11px]"
                       >
-                        <span
-                          className="mt-0.5 font-black"
-                          style={{ color: pkg.color }}
-                        >
-                          ✓
-                        </span>
-
+                        <CheckIcon color={pkg.color} />
                         <span>{feature}</span>
                       </li>
                     ))}
                   </ul>
 
                   <a
-                    href={`https://wa.me/918349813831?text=${encodeURIComponent(
-                      `Hi Noor Technologies, I am interested in the ${pkg.name} Website Package at ${pkg.price}. Please share the details.`,
-                    )}`}
+                    href={whatsappLink(
+                      `Hi Noor Technologies, I am interested in the ${pkg.name} Website Package at ${pkg.price}. Please share the details.`
+                    )}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="mt-4 flex min-h-10 items-center justify-between gap-2 rounded-md px-3 py-2.5 text-xs font-extrabold text-white transition-opacity hover:opacity-90 sm:text-sm"
+                    className="group mt-3 flex min-h-8 items-center justify-between gap-2 rounded-lg px-2.5 py-2 text-[10px] font-black text-white"
                     style={{ backgroundColor: pkg.color }}
                   >
                     Choose {pkg.name}
@@ -416,96 +466,100 @@ export default function Menu() {
           </div>
         </section>
 
-        {/* ADDITIONAL SERVICES TABLE */}
-        <section className="mt-7 sm:mt-10">
-          <div className="mb-2 flex items-end justify-between gap-3 border-b border-[#E5E5E5] pb-3">
-            <div>
-              <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#067F7C] sm:text-xs">
-                Extra requirements
-              </p>
+        {/* ADDITIONAL SERVICES */}
+        <motion.section {...reveal} className="mt-5 sm:mt-6">
+          <div className="mb-2 flex items-end justify-between gap-2 border-b border-black/10 pb-2">
+            <Heading
+              eyebrow="Need something extra?"
+              title="Additional Services"
+            />
 
-              <h3 className="mt-1 text-xl font-black tracking-[-0.045em] sm:text-2xl">
-                Additional Services<span className="text-[#FF765D]">.</span>
-              </h3>
-            </div>
-
-            <span className="pb-1 text-[10px] font-medium text-[#555555] sm:text-xs">
-              Charged separately
+            <span className="pb-1 text-[9px] text-[#666B70]">
+              Custom work
             </span>
           </div>
 
-          <table className="w-full table-fixed border-collapse">
-            <thead>
-              <tr className="border-b-2 border-[#E5E5E5]">
-                <th className="w-[68%] py-2.5 pr-2 text-left text-[10px] font-extrabold uppercase tracking-[0.08em] text-[#555555] sm:text-xs">
-                  Service
-                </th>
+          <div className="grid grid-cols-1 gap-x-5 sm:grid-cols-2">
+            {additionalServices.map(([name, price]) => (
+              <div
+                key={name}
+                className="flex items-center justify-between gap-2 border-b border-black/[0.07] py-2"
+              >
+                <div className="flex min-w-0 items-center gap-2">
+                  <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded bg-[#E7F8F6] text-[11px] font-black text-[#079E9A]">
+                    +
+                  </span>
 
-                <th className="w-[32%] py-2.5 text-right text-[10px] font-extrabold uppercase tracking-[0.08em] text-[#555555] sm:text-xs">
-                  Pricing
-                </th>
-              </tr>
-            </thead>
-
-            <tbody>
-              {additionalServices.map(([name, price]) => (
-                <tr
-                  key={name}
-                  className="border-b border-[#E5E5E5] last:border-0"
-                >
-                  <td className="py-3 pr-2 text-xs font-medium leading-snug text-[#262626] sm:py-3.5 sm:text-sm">
+                  <span className="text-[10px] font-medium leading-4 text-[#303538] sm:text-[11px]">
                     {name}
-                  </td>
+                  </span>
+                </div>
 
-                  <td className="py-3 text-right text-[11px] font-bold leading-snug text-[#404040] sm:py-3.5 sm:text-xs">
-                    {price}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </section>
-
-        {/* CONTACT BANNER */}
-        <div className="mt-5 flex flex-col gap-3 bg-[#283532] p-4 sm:mt-7 sm:flex-row sm:items-center sm:justify-between sm:px-5 sm:py-4">
-          <div>
-            <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#80DCD5] sm:text-xs">
-              Let&apos;s work together
-            </p>
-
-            <h3 className="mt-1 text-lg font-black leading-tight tracking-[-0.04em] text-white sm:text-2xl">
-              Have a project in mind?
-            </h3>
-
-            <p className="mt-1 text-xs font-medium text-white/80 sm:text-sm">
-              Tell us what you need. We&apos;ll help you find the right solution.
-            </p>
+                <span className="shrink-0 text-[9px] font-bold text-[#111111] sm:text-[10px]">
+                  {price}
+                </span>
+              </div>
+            ))}
           </div>
+        </motion.section>
 
-          <a
-            href="https://wa.me/918349813831"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex min-h-11 shrink-0 items-center justify-center gap-2 bg-[#FF765D] px-4 py-3 text-xs font-extrabold text-white transition-colors hover:bg-[#FB2C36] sm:text-sm"
-          >
-            Get a Free Quote
-            <ArrowIcon />
-          </a>
-        </div>
+        {/* CTA */}
+        <motion.div
+          {...reveal}
+          className="relative mt-5 overflow-hidden rounded-xl bg-[#102725] p-3.5 sm:mt-6 sm:p-4 lg:p-5"
+        >
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute -right-10 -top-12 h-36 w-36 rounded-full bg-[#079E9A]/20 blur-3xl"
+          />
 
-        {/* FOOTNOTE */}
-        <div className="mt-3 flex flex-wrap items-center justify-between gap-2 text-[10px] font-medium text-[#555555] sm:text-xs">
-          <span>© 2026 Noor Technologies</span>
+          <div className="relative flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <div className="min-w-0">
+              <p className="text-[9px] font-black uppercase tracking-wider text-[#80DCD5]">
+                Let&apos;s build something great
+              </p>
+
+              <h3 className="mt-1.5 text-lg font-black leading-tight tracking-tight text-white [-webkit-text-stroke:0.2px_#ffffff] sm:text-xl lg:text-2xl">
+                Have a project in mind?
+                <br />
+                <span className="text-[#80DCD5] [-webkit-text-stroke:0px]">
+                  Let&apos;s make it happen.
+                </span>
+              </h3>
+
+              <p className="mt-1.5 max-w-lg text-[10px] leading-4 text-white/70 sm:text-[11px]">
+                Tell us your idea. We&apos;ll help you choose the right digital
+                solution.
+              </p>
+            </div>
+
+            <a
+              href={whatsappLink(
+                "Hi Noor Technologies, I would like to discuss a project."
+              )}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex min-h-9 shrink-0 items-center justify-center gap-2 rounded-lg bg-[#FF765D] px-3.5 py-2.5 text-[11px] font-black text-white hover:bg-[#ff6245] sm:px-4"
+            >
+              Start a Project
+              <ArrowIcon />
+            </a>
+          </div>
+        </motion.div>
+
+        {/* FOOTER */}
+        <footer className="mt-3 flex flex-col gap-1 border-t border-black/[0.08] pt-2.5 text-[9px] text-[#555B5D] sm:flex-row sm:items-center sm:justify-between">
+          <span>© {new Date().getFullYear()} Noor Technologies</span>
 
           <a
             href="https://www.noortechnologies.in"
             target="_blank"
             rel="noopener noreferrer"
-            className="break-all transition-colors hover:text-[#067F7C]"
+            className="font-semibold hover:text-[#079E9A]"
           >
             www.noortechnologies.in
           </a>
-        </div>
+        </footer>
       </div>
     </section>
   );

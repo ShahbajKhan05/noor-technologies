@@ -1,122 +1,106 @@
 
 "use client";
 
-import { useEffect, useState } from "react";
+import React, { useRef } from "react";
+import {
+  motion,
+  useScroll,
+  useTransform,
+  MotionValue,
+} from "framer-motion";
+import { Manrope } from "next/font/google";
 
-const text = "NOOR TECHNOLOGIES";
+const manrope = Manrope({
+  subsets: ["latin"],
+  display: "swap",
+});
 
-export default function PortfolioSection() {
-  const [typedText, setTypedText] = useState("");
+function WordSpan({
+  word,
+  index,
+  total,
+  scrollYProgress,
+}: {
+  word: string;
+  index: number;
+  total: number;
+  scrollYProgress: MotionValue<number>;
+}) {
+  const start = index / total;
+  const end = (index + 1) / total;
 
-  useEffect(() => {
-    let index = 0;
+  // Har word smoothly reveal hoga
+  const opacity = useTransform(
+    scrollYProgress,
+    [start, end],
+    [0.15, 1]
+  );
 
-    const timer = window.setInterval(() => {
-      index++;
-      setTypedText(text.slice(0, index));
+  const color = useTransform(
+    scrollYProgress,
+    [start, end],
+    [
+      "#E5E5E5",
+      word === "design."
+        ? "#14B8A6"
+        : word === "build."
+        ? "#FF6B35"
+        : word === "deploy."
+        ? "#14B8A6"
+        : word === "maintain."
+        ? "#FF6B35"
+        : "#111111",
+    ]
+  );
 
-      if (index >= text.length) {
-        window.clearInterval(timer);
-      }
-    }, 100);
+  return (
+    <motion.span
+      style={{ opacity, color }}
+      className="inline-block"
+    >
+      {word}
+    </motion.span>
+  );
+}
 
-    return () => window.clearInterval(timer);
-  }, []);
+export default function BrandStatement() {
+  const containerRef = useRef<HTMLElement>(null);
+
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end end"],
+  });
+
+  const statement =
+    "We design. We build. We deploy. We maintain. And we teach you how to build.";
+
+  const words = statement.split(" ");
 
   return (
     <section
-      id="portfolio"
-      className="relative flex min-h-[420px] flex-col items-center justify-center overflow-hidden bg-[#FFFFFF] px-5 py-16 text-[#262626]"
-      style={{
-        fontFamily: "-apple-system, sans-serif",
-        fontSize: "16px",
-        fontWeight: 400,
-        lineHeight: "24px",
-        letterSpacing: "0em",
-      }}
+      ref={containerRef}
+      id="brand-statement"
+      className={`relative w-full bg-white ${manrope.className}`}
     >
-      {/* Background decorations */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -left-20 top-10 h-48 w-48 rounded-full bg-[#FCE2D9] opacity-70 blur-3xl"
-      />
-
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -right-20 bottom-5 h-56 w-56 rounded-full bg-[#D1EAE7] opacity-70 blur-3xl"
-      />
-
-      <div className="relative z-10 flex w-full flex-col items-center">
-        {/* Label */}
-        <div className="mb-6 flex items-center gap-2">
-          <span className="h-2 w-2 animate-pulse rounded-full bg-[#079E9A]" />
-
-          <p className="text-xs font-normal uppercase tracking-[0.25em] text-[#6A7282]">
-            Independent Digital Studio
-          </p>
-        </div>
-
-        {/* Animated outline heading */}
-        <h1
-          aria-label={text}
-          className="max-w-full whitespace-nowrap text-center text-[clamp(1.35rem,7.5vw,6rem)] font-normal uppercase leading-none tracking-[-0.045em]"
-          style={{
-            color: "transparent",
-            WebkitTextStroke: "1.5px #079E9A",
-          }}
-        >
-          {typedText}
-          <span
-            aria-hidden="true"
-            className="ml-1 inline-block h-[0.75em] w-[2px] animate-pulse bg-[#FF765D]"
-          />
-        </h1>
-
-        {/* Decorative underline */}
-        <div className="mt-7 flex h-1 w-32 overflow-hidden rounded-full">
-          <span className="w-1/3 bg-[#FF765D]" />
-          <span className="w-1/3 bg-[#FB64B6]" />
-          <span className="w-1/3 bg-[#079E9A]" />
-        </div>
-
-        {/* Description */}
-        <p className="mt-6 max-w-lg text-center text-base font-normal leading-6 text-[#555555]">
-          We turn ambitious ideas into meaningful digital experiences through
-          thoughtful design and intelligent technology.
-        </p>
-
-        {/* CTA Button */}
-        <a
-          href="#contact"
-          className="group mt-8 inline-flex items-center gap-3 rounded-full bg-[#FF765D] px-7 py-3 text-sm font-normal text-white transition-all duration-300 hover:bg-[#FB2C36] hover:shadow-lg hover:shadow-[#FF765D]/25"
-        >
-          Explore Our Approach
-
-          <span className="transition-transform duration-300 group-hover:translate-x-1">
-            →
-          </span>
-        </a>
-
-        {/* Service tags */}
-        <div className="mt-8 flex flex-wrap items-center justify-center gap-2">
-          <span className="rounded-full border border-[#D1EAE7] bg-[#D1EAE7]/40 px-4 py-1.5 text-xs text-[#176C66]">
-            Strategy
-          </span>
-
-          <span className="rounded-full border border-[#FCE2D9] bg-[#FCE2D9]/50 px-4 py-1.5 text-xs text-[#9A4936]">
-            Design
-          </span>
-
-          <span className="rounded-full border border-[#E5E5E5] bg-white px-4 py-1.5 text-xs text-[#4A5565]">
-            Development
-          </span>
+      {/* Animation ke liye scroll distance */}
+      <div className="relative h-[180vh]">
+        {/* Sticky content */}
+        <div className="sticky top-0 flex h-screen w-full items-center justify-center overflow-hidden px-6 md:px-12">
+          <div className="mx-auto w-full max-w-[1200px] text-center">
+            <h2 className="flex flex-wrap justify-center gap-x-[1.5vw] gap-y-1 text-[clamp(2.2rem,5vw,6rem)] font-bold leading-[1.1] tracking-tight md:gap-x-[1vw]">
+              {words.map((word, index) => (
+                <WordSpan
+                  key={`${word}-${index}`}
+                  word={word}
+                  index={index}
+                  total={words.length}
+                  scrollYProgress={scrollYProgress}
+                />
+              ))}
+            </h2>
+          </div>
         </div>
       </div>
-
-      {/* Bottom caption */}
-      <p className="absolute bottom-4 text-[9px] font-normal uppercase tracking-[0.25em] text-[#A1A1A1]">
-        Building Digital Experiences
-      </p>
     </section>
   );
 }

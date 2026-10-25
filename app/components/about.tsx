@@ -1,39 +1,34 @@
-"use client";
 
-import Image from "next/image";
+"use client";
 
 const stories = [
   {
-    before: "Houses",
-    after: "that sit",
-    number: "1",
-    image: "/Noor Technologies Signature.png",
-    imageAlt: "Contemporary house surrounded by greenery",
-    shape: "wide",
+    before: "We are",
+    after: "developers",
+    number: "01",
+    video: "/AN1.mp4",
+    color: "#0BB9A9",
   },
   {
-    before: "lightly on",
-    after: "the land, and",
-    number: "2",
-    image: "/Noor Technologies Signature.png",
-    imageAlt: "Green landscape viewed from above",
-    shape: "square",
+    before: "We are",
+    after: "creators",
+    number: "02",
+    video: "/AN2.mp4",
+    color: "#FF765D",
   },
   {
-    before: "the",
-    after: "people who live",
-    number: "3",
-    image: "/Noor Technologies Signature.png",
-    imageAlt: "Portrait representing people and creativity",
-    shape: "portrait",
+    before: "We build",
+    after: "digital worlds",
+    number: "03",
+    video: "/AN3.mp4",
+    color: "#0BB9A9",
   },
   {
-    before: "slowly",
-    after: "inside them.",
-    number: "4",
-    image: "/Noor Technologies Signature.png",
-    imageAlt: "Modern architectural building in warm light",
-    shape: "wide",
+    before: "We create",
+    after: "impact.",
+    number: "04",
+    video: "/noor.mp4",
+    color: "#FF765D",
   },
 ];
 
@@ -43,69 +38,60 @@ export default function About() {
       id="about"
       className="overflow-hidden bg-[#FDFBFA] text-[#171113]"
     >
-      <div className="mx-auto flex min-h-[75vh] max-w-[1800px] flex-col justify-center px-5 py-20 sm:px-8 sm:py-24 md:min-h-[85vh] md:px-10 md:py-28 lg:px-[5vw] lg:py-32">
-        <p className="mb-8 text-[10px] font-semibold uppercase tracking-[0.24em] text-[#777777] sm:mb-10 sm:text-xs md:mb-12">
+      <div className="mx-auto flex min-h-[75vh] max-w-[1800px] flex-col justify-center px-5 py-10 sm:px-8 sm:py-12 md:px-10 md:py-14 lg:px-[5vw]">
+        <p className="mb-5 text-[10px] font-semibold uppercase tracking-[0.2em] text-[#777777] sm:text-xs md:mb-6">
           About Noor Technologies
         </p>
 
-        <h1 className="max-w-[1600px] font-serif text-[clamp(2.55rem,7.15vw,8.4rem)] font-normal leading-[1.04] tracking-[-0.055em]">
+        <h2 className="max-w-[1600px] font-poppins text-[clamp(2.5rem,6.5vw,7.8rem)] font-semibold leading-[0.99] tracking-[-0.055em]">
           {stories.map((story, index) => (
-            <span key={story.number} className="contents">
-              <span className="whitespace-normal">{story.before}</span>{" "}
+            <span key={story.number}>
+              <span>{story.before}</span>{" "}
 
-              <span className="relative mx-[0.025em] inline-block align-[0.02em]">
-                <span
-                  className={`relative inline-block h-[0.65em] overflow-visible align-middle ${
-                    story.shape === "wide"
-                      ? "w-[1.55em] rounded-full"
-                      : story.shape === "square"
-                        ? "w-[0.68em] rounded-[0.22em]"
-                        : "w-[0.48em] rounded-t-full rounded-b-[0.12em]"
-                  }`}
-                >
-                  <Image
-                    src={story.image}
-                    alt={story.imageAlt}
-                    fill
-                    sizes="(max-width: 640px) 100px, (max-width: 1024px) 180px, 280px"
-                    className="object-cover"
-                  />
-                </span>
+              <span className="relative mx-[0.025em] inline-block h-[0.48em] w-[1.3em] overflow-hidden rounded-[0.06em] align-middle sm:w-[1.45em] md:w-[1.6em]">
+                <video
+                  src={story.video}
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  preload="metadata"
+                  aria-label={`Noor Technologies ${story.after}`}
+                  className="absolute inset-0 h-full w-full object-cover"
+                />
 
-                <sup className="absolute -right-[0.8em] -top-[0.5em] font-sans text-[0.11em] tracking-normal text-[#777777]">
+                <span className="absolute bottom-0 right-0.5 text-[0.13em] font-medium text-white">
                   {story.number}
-                </sup>
+                </span>
               </span>{" "}
 
-              <span className="whitespace-normal">{story.after}</span>
+              <span style={{ color: story.color }}>{story.after}</span>
 
-              {index < stories.length - 1 ? (
+              {index < stories.length - 1 && (
                 <>
                   {" "}
                   <br className="hidden sm:block" />
                 </>
-              ) : null}
+              )}
+
               {index < stories.length - 1 ? " " : null}
             </span>
           ))}
-        </h1>
+        </h2>
 
-        <div className="mt-12 flex flex-col gap-5 border-t border-[#E5E5E5] pt-6 sm:mt-16 sm:flex-row sm:items-end sm:justify-between md:mt-20">
-          <p className="max-w-xl text-sm leading-7 text-[#555555] sm:text-base">
-            We build thoughtful digital experiences, modern websites, and
-            practical software — designed around people, shaped by purpose,
-            and made to move businesses forward.
+        <div className="mt-6 flex flex-col gap-4 border-t border-[#E5E5E5] pt-4 sm:mt-8 sm:flex-row sm:items-end sm:justify-between">
+          <p className="max-w-2xl text-sm leading-6 text-[#555555] sm:text-base sm:leading-7">
+            We design modern websites, develop powerful software, and create
+            digital experiences that turn ambitious ideas into meaningful
+            impact.
           </p>
 
           <a
             href="#contact"
-            className="group inline-flex w-fit shrink-0 items-center gap-3 text-sm font-medium text-[#067F7C] transition-colors hover:text-[#FF765D]"
+            className="group inline-flex w-fit shrink-0 items-center gap-2 text-sm font-semibold text-[#079F98] transition-colors hover:text-[#FF765D]"
           >
-            Let&apos;s build something meaningful
-            <span
-              aria-hidden="true"
-              className="inline-block transition-transform duration-300 group-hover:translate-x-1"
-            >
+            LET&apos;S BUILD SOMETHING
+            <span className="transition-transform duration-300 group-hover:translate-x-1">
               ↗
             </span>
           </a>
